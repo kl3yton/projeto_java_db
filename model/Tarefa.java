@@ -1,10 +1,11 @@
 package model;
+
 public class Tarefa {
     private int id;
     private String descricao;
+    private String status;
     private Categoria categoria;
     private Colaborador colaborador;
-    private String status;
 
     public Tarefa(int id, String descricao, Categoria categoria) {
         this.id = id;
@@ -21,38 +22,40 @@ public class Tarefa {
         return descricao;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public Colaborador getColaborador() {
-        return colaborador;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
     }
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
     public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
-        String colab = (colaborador != null) ? colaborador.getNome() : "Não atribuído";
-        return "Tarefa [ID=" + id + ", Descricao=" + descricao + ", Categoria=" + categoria.getNome() +
-                ", Colaborador=" + colab + ", Status=" + status + "]";
+        return "Tarefa [ID=" + id +
+                ", Descrição=" + descricao +
+                ", Status=" + status +
+                ", Categoria=" + (categoria != null ? categoria.getNome() : "Sem Categoria") +
+                ", Colaborador=" + (colaborador != null ? colaborador.getNome() : "Sem Colaborador") + "]";
     }
 }
