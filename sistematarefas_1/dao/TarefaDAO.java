@@ -1,3 +1,14 @@
+/**
+ * Classe responsável pelo acesso e manipulação dos dados da tabela 'tarefas' no banco de dados.
+ * Implementa as operações básicas de CRUD:
+ * - Criar (adicionarTarefa)
+ * - Ler (listarTarefas)
+ * - Atualizar (atualizarTarefa)
+ * - Deletar (excluirTarefa)
+ * 
+ * Utiliza a classe ConnectionFactory para obter a conexão com o banco de dados.
+ * Exibe mensagens ao usuário em caso de sucesso ou erro nas operações.
+ */
 package dao;
 
 import java.sql.*;
