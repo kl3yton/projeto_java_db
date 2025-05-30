@@ -110,11 +110,41 @@ public class SistemaTarefas {
         System.out.println("Categoria cadastrada com sucesso!");
     }
 
+    // --- CRUD de Colaboradores ---
+
     private static void cadastrarColaborador() {
+        // Cadastra um novo colaborador no sistema
         System.out.print("Nome do colaborador: ");
         String nome = sc.nextLine();
         colaboradores.add(new Colaborador(idColaborador++, nome));
         System.out.println("Colaborador cadastrado com sucesso!");
+    }
+
+    private static void listarColaboradores() {
+        // Lista todos os colaboradores cadastrados
+        System.out.println("\n--- Colaboradores ---");
+        colaboradores.forEach(System.out::println);
+    }
+
+    private static void excluirColaborador() {
+        // Exclui um colaborador pelo ID e remove associação com tarefas
+        listarColaboradores();
+        System.out.print("ID do colaborador para excluir: ");
+        int idColab = sc.nextInt();
+
+        Colaborador colab = buscarColaboradorPorId(idColab);
+        if (colab != null) {
+            // Remove o colaborador das tarefas que estavam associadas a ele
+            tarefas.forEach(t -> {
+                if (t.getColaborador() != null && t.getColaborador().getId() == idColab) {
+                    t.setColaborador(null);
+                }
+            });
+            colaboradores.remove(colab);
+            System.out.println("Colaborador excluído com sucesso.");
+        } else {
+            System.out.println("Colaborador não encontrado.");
+        }
     }
 
     private static void cadastrarTarefa() {
@@ -183,11 +213,6 @@ public class SistemaTarefas {
     private static void listarCategorias() {
         System.out.println("\n--- Categorias ---");
         categorias.forEach(System.out::println);
-    }
-
-    private static void listarColaboradores() {
-        System.out.println("\n--- Colaboradores ---");
-        colaboradores.forEach(System.out::println);
     }
 
     private static void listarTarefas() {
@@ -310,25 +335,6 @@ public class SistemaTarefas {
         }
     }
 
-    private static void excluirColaborador() {
-        listarColaboradores();
-        System.out.print("ID do colaborador para excluir: ");
-        int idColab = sc.nextInt();
-
-        Colaborador colab = buscarColaboradorPorId(idColab);
-        if (colab != null) {
-            tarefas.forEach(t -> {
-                if (t.getColaborador() != null && t.getColaborador().getId() == idColab) {
-                    t.setColaborador(null);
-                }
-            });
-            colaboradores.remove(colab);
-            System.out.println("Colaborador excluído com sucesso.");
-        } else {
-            System.out.println("Colaborador não encontrado.");
-        }
-    }
-
     private static Categoria buscarCategoriaPorId(int id) {
         return categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
     }
@@ -341,3 +347,4 @@ public class SistemaTarefas {
         return tarefas.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
 }
+
