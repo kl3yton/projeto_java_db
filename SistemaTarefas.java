@@ -1,5 +1,5 @@
 package model;
-    
+
 import java.util.*;
 
 import model.Categoria;
@@ -8,106 +8,135 @@ import model.Tarefa;
 
 public class SistemaTarefas {
     private static Scanner sc = new Scanner(System.in);
+
     private static List<Categoria> categorias = new ArrayList<>();
+    private static int idCategoria = 1;
+
     private static List<Colaborador> colaboradores = new ArrayList<>();
     private static List<Tarefa> tarefas = new ArrayList<>();
 
-    private static int idCategoria = 1;
     private static int idColaborador = 1;
     private static int idTarefa = 1;
-public static void main(String[] args) {
-    int opcao;
-    do {
-        menu();
-        opcao = sc.nextInt();
-        sc.nextLine();
 
-        switch (opcao) {
-            case 1 -> cadastrarCategoria();
-            case 2 -> cadastrarColaborador();
-            case 3 -> cadastrarTarefa();
-            case 4 -> associarTarefaColaborador();
-            case 5 -> alterarStatusTarefa();
-            case 6 -> listarCategorias();
-            case 7 -> listarColaboradores();
-            case 8 -> listarTarefasComFiltros();
-            case 9 -> excluirTarefa();
-            case 10 -> excluirColaborador();
-            case 11 -> modificarTarefa();
-            case 12 -> modificarCategoria(); 
-            case 13 -> excluirCategoria();   
-            case 0 -> System.out.println("Saindo...");
-            default -> System.out.println("Opção inválida.");
-        }
-    } while (opcao != 0);
-}
+    public static void main(String[] args) {
+        int opcao;
+        do {
+            menu();
+            opcao = sc.nextInt();
+            sc.nextLine();
+
+            switch (opcao) {
+                case 1 -> cadastrarCategoria();
+                case 2 -> cadastrarColaborador();
+                case 3 -> cadastrarTarefa();
+                case 4 -> associarTarefaColaborador();
+                case 5 -> alterarStatusTarefa();
+                case 6 -> listarCategorias();
+                case 7 -> listarColaboradores();
+                case 8 -> listarTarefasComFiltros();
+                case 9 -> excluirTarefa();
+                case 10 -> excluirColaborador();
+                case 11 -> modificarTarefa();
+                case 12 -> modificarCategoria(); 
+                case 13 -> excluirCategoria();   
+                case 0 -> System.out.println("Saindo...");
+                default -> System.out.println("Opção inválida.");
+            }
+        } while (opcao != 0);
+    }
 
     public static void menu() {
-    System.out.println("\n===== Sistema de Controle de Tarefas =====");
-    System.out.println("1 - Cadastrar Categoria");
-    System.out.println("2 - Cadastrar Colaborador");
-    System.out.println("3 - Cadastrar Tarefa");
-    System.out.println("4 - Associar Tarefa a Colaborador");
-    System.out.println("5 - Alterar Status da Tarefa");
-    System.out.println("6 - Listar Categorias");
-    System.out.println("7 - Listar Colaboradores");
-    System.out.println("8 - Listar Tarefas com Filtros");
-    System.out.println("9 - Excluir Tarefa");
-    System.out.println("10 - Excluir Colaborador");
-    System.out.println("11 - Modificar Tarefa");
-    System.out.println("12 - Modificar Categoria"); 
-    System.out.println("13 - Excluir Categoria");   
-    System.out.println("0 - Sair");
-    System.out.print("Escolha uma opção: ");
-}
-
-private static void modificarCategoria() {
-    listarCategorias();
-    System.out.print("ID da categoria para modificar: ");
-    int idCat = sc.nextInt();
-    sc.nextLine();
-
-    Categoria categoria = buscarCategoriaPorId(idCat);
-    if (categoria == null) {
-        System.out.println("Categoria não encontrada.");
-        return;
+        System.out.println("\n===== Sistema de Controle de Tarefas =====");
+        System.out.println("1 - Cadastrar Categoria");
+        System.out.println("2 - Cadastrar Colaborador");
+        System.out.println("3 - Cadastrar Tarefa");
+        System.out.println("4 - Associar Tarefa a Colaborador");
+        System.out.println("5 - Alterar Status da Tarefa");
+        System.out.println("6 - Listar Categorias");
+        System.out.println("7 - Listar Colaboradores");
+        System.out.println("8 - Listar Tarefas com Filtros");
+        System.out.println("9 - Excluir Tarefa");
+        System.out.println("10 - Excluir Colaborador");
+        System.out.println("11 - Modificar Tarefa");
+        System.out.println("12 - Modificar Categoria"); 
+        System.out.println("13 - Excluir Categoria");   
+        System.out.println("0 - Sair");
+        System.out.print("Escolha uma opção: ");
     }
-
-    System.out.print("Novo nome da categoria: ");
-    String novoNome = sc.nextLine();
-    categoria.setNome(novoNome);
-    System.out.println("Nome da categoria atualizado com sucesso!");
-}
-
-private static void excluirCategoria() {
-    listarCategorias();
-    System.out.print("ID da categoria para excluir: ");
-    int idCat = sc.nextInt();
-    sc.nextLine();
-
-    Categoria categoria = buscarCategoriaPorId(idCat);
-    if (categoria == null) {
-        System.out.println("Categoria não encontrada.");
-        return;
-    }
-
-    // Remover a categoria das tarefas associadas antes de excluí-la
-    tarefas.forEach(t -> {
-        if (t.getCategoria() != null && t.getCategoria().getId() == idCat) {
-            t.setCategoria(null); 
-        }
-    });
-
-    categorias.remove(categoria);
-    System.out.println("Categoria excluída com sucesso!");
-    System.out.println("As tarefas anteriormente associadas a esta categoria agora não têm categoria definida.");
-}
 
     private static void cadastrarCategoria() {
+        // Solicita ao usuário o nome da nova categoria
         System.out.print("Nome da categoria: ");
         String nome = sc.nextLine();
+
+        // Cria e adiciona a categoria na lista com um ID único
         categorias.add(new Categoria(idCategoria++, nome));
+
+        // Confirmação para o usuário
         System.out.println("Categoria cadastrada com sucesso!");
+    }
+
+    private static void modificarCategoria() {
+        // Lista todas as categorias disponíveis
+        listarCategorias();
+
+        // Solicita o ID da categoria a ser modificada
+        System.out.print("ID da categoria para modificar: ");
+        int idCat = sc.nextInt();
+        sc.nextLine();
+
+        // Busca a categoria pelo ID
+        Categoria categoria = buscarCategoriaPorId(idCat);
+        if (categoria == null) {
+            System.out.println("Categoria não encontrada.");
+            return;
+        }
+
+        // Solicita novo nome e atualiza
+        System.out.print("Novo nome da categoria: ");
+        String novoNome = sc.nextLine();
+        categoria.setNome(novoNome);
+        System.out.println("Nome da categoria atualizado com sucesso!");
+    }
+
+    private static void excluirCategoria() {
+        // Lista todas as categorias
+        listarCategorias();
+
+        // Solicita o ID da categoria a ser excluída
+        System.out.print("ID da categoria para excluir: ");
+        int idCat = sc.nextInt();
+        sc.nextLine();
+
+        // Busca a categoria
+        Categoria categoria = buscarCategoriaPorId(idCat);
+        if (categoria == null) {
+            System.out.println("Categoria não encontrada.");
+            return;
+        }
+
+        // Remove o vínculo da categoria com as tarefas associadas
+        tarefas.forEach(t -> {
+            if (t.getCategoria() != null && t.getCategoria().getId() == idCat) {
+                t.setCategoria(null); 
+            }
+        });
+
+        // Remove a categoria da lista
+        categorias.remove(categoria);
+        System.out.println("Categoria excluída com sucesso!");
+        System.out.println("As tarefas anteriormente associadas a esta categoria agora não têm categoria definida.");
+    }
+
+    private static void listarCategorias() {
+        // Lista todas as categorias cadastradas no sistema
+        System.out.println("\n--- Categorias ---");
+        categorias.forEach(System.out::println);
+    }
+
+    private static Categoria buscarCategoriaPorId(int id) {
+        // Busca uma categoria pelo seu ID
+        return categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
     }
 
     private static void cadastrarColaborador() {
@@ -178,11 +207,6 @@ private static void excluirCategoria() {
 
         tarefa.setStatus(status);
         System.out.println("Status atualizado com sucesso!");
-    }
-
-    private static void listarCategorias() {
-        System.out.println("\n--- Categorias ---");
-        categorias.forEach(System.out::println);
     }
 
     private static void listarColaboradores() {
@@ -327,10 +351,6 @@ private static void excluirCategoria() {
         } else {
             System.out.println("Colaborador não encontrado.");
         }
-    }
-
-    private static Categoria buscarCategoriaPorId(int id) {
-        return categorias.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
     }
 
     private static Colaborador buscarColaboradorPorId(int id) {
