@@ -61,8 +61,11 @@ public class SistemaTarefas {
             }
         } while (opcao != 0);
     }
-
+    
+   // --- CRUD de Categorias ---
+    
     private static void modificarCategoria() {
+        // Permite alterar o nome de uma categoria existente
         listarCategorias();
         System.out.print("ID da categoria para modificar: ");
         int idCat = sc.nextInt();
@@ -81,6 +84,7 @@ public class SistemaTarefas {
     }
 
     private static void excluirCategoria() {
+        // Exclui uma categoria e desassocia ela das tarefas existentes
         listarCategorias();
         System.out.print("ID da categoria para excluir: ");
         int idCat = sc.nextInt();
@@ -104,6 +108,7 @@ public class SistemaTarefas {
     }
 
     private static void cadastrarCategoria() {
+        // Cadastra uma nova categoria no sistema     
         System.out.print("Nome da categoria: ");
         String nome = sc.nextLine();
         categorias.add(new Categoria(idCategoria++, nome));
@@ -211,6 +216,7 @@ public class SistemaTarefas {
     }
 
     private static void listarCategorias() {
+        // Lista todas as categorias cadastradas
         System.out.println("\n--- Categorias ---");
         categorias.forEach(System.out::println);
     }
