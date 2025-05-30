@@ -1,3 +1,12 @@
+/**
+ * Classe que representa uma Tarefa no sistema.
+ * Contém informações como ID, descrição, status, categoria e colaborador.
+ * O status é iniciado como "Pendente" por padrão.
+ * Possui métodos getters e setters para manipular seus atributos,
+ * além de um método toString para exibir as informações da tarefa
+ * de forma legível no console.
+ */
+
 package src.model;
 
 public class Tarefa {
