@@ -84,7 +84,7 @@ public class SistemaTarefas {
     }
 
     private static void excluirCategoria() {
-        // Exclui uma categoria e desassocia ela das tarefas existentes
+        // Exclui uma categoria e desassocia ela das tarefas já existentes
         listarCategorias();
         System.out.print("ID da categoria para excluir: ");
         int idCat = sc.nextInt();
