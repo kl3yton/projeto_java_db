@@ -92,7 +92,6 @@ public class SistemaTarefas {
             return;
         }
 
-        // Remover a categoria das tarefas associadas antes de excluí-la
         tarefas.forEach(t -> {
             if (t.getCategoria() != null && t.getCategoria().getId() == idCat) {
                 t.setCategoria(null);
