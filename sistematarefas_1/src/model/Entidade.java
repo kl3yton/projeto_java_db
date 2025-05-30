@@ -1,8 +1,5 @@
 package src.model;
 
-//  Abstração: Classe genérica para representar qualquer entidade com ID e nome.
-// Herança: Esta classe é usada como superclasse para Colaborador.
-
 public abstract class Entidade {
     //  Encapsulamento: Protegendo os atributos.
     protected int id;
